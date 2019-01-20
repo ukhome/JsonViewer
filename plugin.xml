@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.ukhome.jsonviewer.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.ukhome.jsonviewer.JsonViewerPerspective"
+            name="JsonViewer Perspective"
+            id="org.ukhome.jsonviewer.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="org.ukhome.jsonviewer.view.JsonViewer"
+            id="org.ukhome.jsonviewer.view.JsonViewer"
+            name="JsonViewer"
+            restorable="true">
+      </view>
+   </extension>
+
+</plugin>
