@@ -2,25 +2,21 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-   <extension
-         id="application"
-         point="org.eclipse.core.runtime.applications">
+   <extension id="application" point="org.eclipse.core.runtime.applications">
       <application>
-         <run
-               class="org.ukhome.jsonviewer.Application">
-         </run>
+         <run class="org.ukhome.jsonviewer.Application"/>
       </application>
    </extension>
-   <extension
-         point="org.eclipse.ui.perspectives">
+   
+   <extension point="org.eclipse.ui.perspectives">
       <perspective
-            class="org.ukhome.jsonviewer.JsonViewerPerspective"
+            class="org.ukhome.jsonviewer.perspective.JsonViewerPerspective"
             name="JsonViewer Perspective"
             id="org.ukhome.jsonviewer.perspective">
       </perspective>
    </extension>
-   <extension
-         point="org.eclipse.ui.views">
+   
+   <extension point="org.eclipse.ui.views">
       <view
             class="org.ukhome.jsonviewer.view.JsonViewer"
             id="org.ukhome.jsonviewer.view.JsonViewer"

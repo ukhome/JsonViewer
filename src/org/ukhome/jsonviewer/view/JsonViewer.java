@@ -9,12 +9,17 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.part.ViewPart;
+import org.ukhome.jsonviewer.model.Json;
 import org.ukhome.jsonviewer.provider.JsonViewerContentProvider;
 import org.ukhome.jsonviewer.provider.JsonViewerLabelProvider;
 
 public class JsonViewer extends ViewPart {
 	
 	public static final String ID = "org.ukhome.jsonviewer.view.JsonViewer";
+	public static final String JSON = "[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]";
+	public static final String JSON1 = "{\"11\":[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]}";
+	public static final String JSON2 = "[[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]]";
+
 	private TreeViewer treeViewer;
 
 	public JsonViewer() {
@@ -31,7 +36,12 @@ public class JsonViewer extends ViewPart {
 			@Override
 			public void widgetSelected(SelectionEvent e) {//单击
 				super.widgetSelected(e);
-				System.err.println(e);
+				Object element = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
+
+				// 刷新
+				treeViewer.expandToLevel(2);	// 展开到二级菜单
+				treeViewer.refresh();			// 回调provider
+				System.err.println(element);
 			}
 			
 			@Override
@@ -53,13 +63,20 @@ public class JsonViewer extends ViewPart {
 		/*
 		 * 5. 入参同时也是上面的getElements、getImage、getText入参的parent
 		 */
-		treeViewer.setInput(getViewSite());
-		getSite().setSelectionProvider(treeViewer);
+		treeViewer.setInput(Json.getInstance(makemmmmRoot(JSON1)));
+		//getSite().setSelectionProvider(treeViewer);
+	}
+
+	private String makemmmmRoot(String jsonStr) {
+		if (null == jsonStr || jsonStr.trim().equals("")) return null;
+		if(jsonStr.trim().charAt(0) != '[' && jsonStr.trim().charAt(0) != '{') return null;
+		char rootTag = jsonStr.charAt(0);
+		String root = rootTag == '[' ? '[' + jsonStr + ']' : "{\"root\":" + jsonStr + '}';
+		return root;
 	}
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
 
 	}
 

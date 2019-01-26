@@ -1,42 +1,38 @@
 package org.ukhome.jsonviewer.provider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.ukhome.jsonviewer.model.IBase;
+import org.ukhome.jsonviewer.model.Json;
 
 public class JsonViewerContentProvider implements ITreeContentProvider {
 	
-	private List<Object> contents = new ArrayList<Object>();
-
+	/**
+	 * 构造根节点
+	 */
 	@Override
 	public Object[] getElements(Object inputElement) {
-		getAllElements(inputElement);
-		return (Object[]) contents.toArray();
+		return ((Json)inputElement).getChildren();
 	}
 
 
 	@Override
 	public Object[] getChildren(Object parentElement) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(parentElement);
+		return Json.getInstance(parentElement.toString()).getChildren();
 	}
 
 	@Override
 	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
-		return null;
+		return Json.getInstance(element.toString()).getParent();
 	}
 
 	@Override
 	public boolean hasChildren(Object element) {
-		return null != contents && !contents.isEmpty() ? true : false;
+		return Json.getInstance(element.toString()).hasChildern();
 	}
 	
-	private void getAllElements(Object inputElement) {
-		contents.add("111");
-		contents.add("222");
-
+	protected Object[] getAllElements(Object inputElement) {
+		return inputElement instanceof IBase ? ((IBase<?>)inputElement).getChildren() : new String[] {inputElement.toString()};
 	}
 
 }
