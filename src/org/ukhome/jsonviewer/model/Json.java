@@ -17,6 +17,10 @@ public class Json implements IBase<Json> {
     protected Json(String jsonStr) {
     }
 
+    /**
+     * 子类重写
+     * @param jsonStr
+     */
     protected void makeChildren(String jsonStr) {
 
     }
@@ -49,11 +53,6 @@ public class Json implements IBase<Json> {
         return JSON.toJSONString(obj, features);
     }
 
-//	@Override
-//	public String toString() {
-//		return "";
-//	}
-
     @Override
     public boolean hasChildern() {
         return !children.isEmpty();
@@ -72,23 +71,6 @@ public class Json implements IBase<Json> {
     public void setName(String name) {
         this.name = name;
     }
-
-    @Override
-    public Json getParent() {
-        return null;
-    }
-
-    @Override
-    public void setParent(Json object) {
-
-    }
-
-    @Override
-    public void setChildren(Json[] children) {
-
-    }
-
-
 
     @Override
     public int currentLevel() {

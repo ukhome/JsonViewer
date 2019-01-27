@@ -23,20 +23,10 @@ public class JsonObject extends Json {
             Object obj = jsonObject.get(key);
             Json child = Json.getInstance(getJsonString(obj), key);
             if (null == obj || StringUtils.isJson(obj.toString()))
-                child.setName(key);//JsonItem对象的item是,或者是json类型字符串
+                child.setName(key);// JsonItem对象的item是,或者是json类型字符串
             this.children.add(child);
         }
     }
-
-//    @Override
-//    public Json[] getChildren() {
-//        return children.toArray(new Json[children.size()]);
-//    }
-//
-//    @Override
-//    public boolean hasChildern() {
-//        return !children.isEmpty();
-//    }
 
     @Override
     public String toString() {
