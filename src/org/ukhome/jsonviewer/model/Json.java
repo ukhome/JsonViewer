@@ -5,93 +5,95 @@ import java.util.List;
 
 import org.ukhome.jsonviewer.util.StringUtils;
 
-public class Json implements IBase<Json>{
-	
-	protected String name;
-//	protected String name;
-	
-	
-	protected List<Json> children = new ArrayList<Json>();
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
-	
-	protected Json(String jsonStr) 
-	{
-//		makeChildren(jsonStr);
-	}
-	
-	protected void makeChildren(String jsonStr)
-	{
-		
-	}
+public class Json implements IBase<Json> {
 
-	public static Json getInstance(String jsonStr)
-	{
-		return getInstance(jsonStr, null);
-	}
-	
-	public static Json getInstance(String jsonStr, String itemName)
-	{
-		Json instance = null;
-		if(StringUtils.isEmpty(jsonStr)) return instance;
-		
-		char firstChar = jsonStr.charAt(0);
-		switch (firstChar) {
-		case '[':
-			instance = new JsonArray(jsonStr);
-			break;
-		case '{' :
-			instance = new JsonObject(jsonStr);
-			break;
-		default:
-			instance = new JsonItem(itemName, jsonStr);
-			break;
-		}
-		return instance;
-	}
-	
+    protected String name;
+    protected static SerializerFeature[] features = { SerializerFeature.WriteMapNullValue };
+    protected List<Json> children = new ArrayList<Json>();
+
+    protected Json(String jsonStr) {
+    }
+
+    protected void makeChildren(String jsonStr) {
+
+    }
+
+    public static Json getInstance(String jsonStr) {
+        return getInstance(jsonStr, null);
+    }
+
+    public static Json getInstance(String jsonStr, String itemName) {
+        Json instance = null;
+        if (StringUtils.isEmpty(jsonStr))
+            return instance;
+
+        char firstChar = jsonStr.charAt(0);
+        switch (firstChar) {
+            case '[':
+                instance = new JsonArray(jsonStr);
+                break;
+            case '{':
+                instance = new JsonObject(jsonStr);
+                break;
+            default:
+                instance = new JsonItem(itemName, jsonStr);
+                break;
+        }
+        return instance;
+    }
+    
+    protected String getJsonString(Object obj) {
+        return JSON.toJSONString(obj, features);
+    }
+
 //	@Override
 //	public String toString() {
 //		return "";
 //	}
-	
-	@Override
-	public boolean hasChildern() {
-		return false;
-	}
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public boolean hasChildern() {
+        return !children.isEmpty();
+    }
 
-	@Override
-	public Json getParent() {
-		return null;
-	}
+    @Override
+    public Json[] getChildren() {
+        return children.toArray(new Json[children.size()]);
+    }
 
-	@Override
-	public void setParent(Json object) {
-		
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public void setChildren(Json[] children) {
-		
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public Json[] getChildren() {
-		return null;
-	}
+    @Override
+    public Json getParent() {
+        return null;
+    }
 
-	@Override
-	public int currentLevel() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public void setParent(Json object) {
+
+    }
+
+    @Override
+    public void setChildren(Json[] children) {
+
+    }
+
+
+
+    @Override
+    public int currentLevel() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

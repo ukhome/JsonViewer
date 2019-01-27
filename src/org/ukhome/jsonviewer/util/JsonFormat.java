@@ -1,6 +1,5 @@
 package org.ukhome.jsonviewer.util;
 
-import org.ukhome.jsonviewer.model.IBase;
 import org.ukhome.jsonviewer.model.JsonArray;
 import org.ukhome.jsonviewer.model.JsonObject;
 
@@ -11,11 +10,12 @@ import com.alibaba.fastjson.JSONObject;
 
 public class JsonFormat {
 	
-	public static final String JSON = "{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"devautotest\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"status\":0}";
-	public static final String JSON1 = "{\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"devautotest\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"status\":0}}";
-	public static final String JSON2 = "[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]";
+	public static final String JSON = "{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"status\":null}";
+	public static final String JSON0 = "[{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"\",\"status\":null}]";
+	public static final String JSON1 = "{\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"status\":null}}";
+	public static final String JSON2 = "[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":null}}]";
 	public static final String JSON3 = "{\"11\":[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]}";
-	public static final String JSON4 = "[[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]]";
+	public static final String JSON4 = "[[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":null}}]]";
 
 
 	public static String formatJson(String jsonStr) {

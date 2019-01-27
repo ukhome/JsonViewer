@@ -10,8 +10,8 @@ public class Test {
 	public static void main(String[] args) {
         
 		pt(JsonFormat.JSON);
-		pt(JsonFormat.JSON1);
-		pt(JsonFormat.JSON3);
+//		pt(JsonFormat.JSON1);
+//		pt(JsonFormat.JSON3);
 	}
 	
 	
@@ -20,7 +20,7 @@ public class Test {
 		Json jsonObject = Json.getInstance(json);
 		
 		if(jsonObject.hasChildern()) {
-			List list = Arrays.asList(jsonObject.getChildren());
+			List<Json> list = Arrays.asList(jsonObject.getChildren());
 			System.out.println(list.size() + " : " + list);
 		}
 		System.out.println("-----------------------------------------");
