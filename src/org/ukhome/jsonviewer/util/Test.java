@@ -1,12 +1,29 @@
 package org.ukhome.jsonviewer.util;
 
-import com.alibaba.fastjson.JSONObject;
+import java.util.Arrays;
+import java.util.List;
+
+import org.ukhome.jsonviewer.model.Json;
 
 public class Test {
 
 	public static void main(String[] args) {
-        String str = "{'age':'23','aihao':['pashan','movies'],'name':{'firstName':'zhang','lastName':'san','aihao':['pashan','movies','name':{'firstName':'zhang','lastName':'san','aihao':['pashan','movies']}]}}";
-        System.out.println(new JSONObject().isEmpty());
+        
+		pt(JsonFormat.JSON);
+		pt(JsonFormat.JSON1);
+		pt(JsonFormat.JSON3);
+	}
+	
+	
+	private static void pt(String json)
+	{
+		Json jsonObject = Json.getInstance(json);
+		
+		if(jsonObject.hasChildern()) {
+			List list = Arrays.asList(jsonObject.getChildren());
+			System.out.println(list.size() + " : " + list);
+		}
+		System.out.println("-----------------------------------------");
 	}
 	
 	

@@ -15,8 +15,8 @@ public class JsonArray extends Json{
 	}
 
 	@Override
-	public String[] getChildren() {
-		return jsonArray.toArray(new String[jsonArray.size()]);
+	public Json[] getChildren() {
+		return null;
 	}
 	
 	@Override

@@ -1,40 +1,58 @@
 package org.ukhome.jsonviewer.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.ukhome.jsonviewer.util.StringUtils;
 
-public class Json implements IBase<String>{
+public class Json implements IBase<Json>{
 	
-	protected String jsonStr;
+	protected String name;
+//	protected String name;
+	
+	
+	protected List<Json> children = new ArrayList<Json>();
+
 	
 	protected Json(String jsonStr) 
 	{
-		this.jsonStr = jsonStr;
+//		makeChildren(jsonStr);
+	}
+	
+	protected void makeChildren(String jsonStr)
+	{
+		
 	}
 
 	public static Json getInstance(String jsonStr)
+	{
+		return getInstance(jsonStr, null);
+	}
+	
+	public static Json getInstance(String jsonStr, String itemName)
 	{
 		Json instance = null;
 		if(StringUtils.isEmpty(jsonStr)) return instance;
 		
 		char firstChar = jsonStr.charAt(0);
 		switch (firstChar) {
-			case '[':
-				instance = new JsonArray(jsonStr);
-				break;
-			case '{' :
-				instance = new JsonObject(jsonStr);
-				break;
-			default:
-				instance = jsonStr.contains(":") ? new JsonItem(jsonStr) : new JsonItem(jsonStr + ": ");
-				break;
+		case '[':
+			instance = new JsonArray(jsonStr);
+			break;
+		case '{' :
+			instance = new JsonObject(jsonStr);
+			break;
+		default:
+			instance = new JsonItem(itemName, jsonStr);
+			break;
 		}
 		return instance;
 	}
 	
-	@Override
-	public String toString() {
-		return jsonStr;
-	}
+//	@Override
+//	public String toString() {
+//		return "";
+//	}
 	
 	@Override
 	public boolean hasChildern() {
@@ -43,26 +61,30 @@ public class Json implements IBase<String>{
 
 	@Override
 	public String getName() {
+		return this.name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public Json getParent() {
 		return null;
 	}
 
 	@Override
-	public String getParent() {
-		return null;
-	}
-
-	@Override
-	public void setParent(String object) {
+	public void setParent(Json object) {
 		
 	}
 
 	@Override
-	public void setChildren(String[] children) {
+	public void setChildren(Json[] children) {
 		
 	}
 
 	@Override
-	public String[] getChildren() {
+	public Json[] getChildren() {
 		return null;
 	}
 

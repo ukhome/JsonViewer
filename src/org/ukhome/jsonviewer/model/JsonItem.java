@@ -1,23 +1,31 @@
 package org.ukhome.jsonviewer.model;
 
+import org.ukhome.jsonviewer.util.StringUtils;
+
 public class JsonItem extends Json{
 	
-	private String key;
-	private String value;
+	private String item;
 	
-	protected JsonItem(String jsonStr) {
-		super(jsonStr);
-		this.key = jsonStr.substring(0, jsonStr.indexOf(':'));
-		this.value = jsonStr.substring(jsonStr.indexOf(':') + 1);
+	protected JsonItem(String name, String item) {
+		super(name);
+		this.name = name;
+		this.item = item;
 	}
 	
 	@Override
-	public String getName() {
-		return this.key;
+	public String toString() {
+		return this.name + "=" + this.item;
 	}
 
-	public String getValue() {
-		return value;
+	@Override
+	public Json[] getChildren() {
+		return new Json[] {Json.getInstance(item)};
 	}
+	
+	@Override
+	public boolean hasChildern() {
+		return StringUtils.isJson(this.item);
+	}
+
 	
 }
