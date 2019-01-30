@@ -15,13 +15,13 @@ import org.ukhome.jsonviewer.provider.JsonViewerLabelProvider;
 import org.ukhome.jsonviewer.util.JsonFormat;
 import org.ukhome.jsonviewer.util.StringUtils;
 
-public class JsonViewer extends ViewPart {
+public class JsonTreeView extends ViewPart {
 
-    public static final String ID = "org.ukhome.jsonviewer.view.JsonViewer";
+    public static final String ID = "org.ukhome.jsonviewer.view.JsonView";
 
     private TreeViewer treeViewer;
 
-    public JsonViewer() {
+    public JsonTreeView() {
 
     }
 
@@ -30,25 +30,7 @@ public class JsonViewer extends ViewPart {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new FillLayout(SWT.HORIZONTAL));
         treeViewer = new TreeViewer(container, SWT.BORDER);
-        final Tree tree = treeViewer.getTree();
-        tree.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {// 单击
-                super.widgetSelected(e);
-                Object element = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-
-                // 刷新
-//				treeViewer.expandToLevel(2);	// 展开到二级菜单
-//				treeViewer.refresh();
-                System.err.println(element);
-            }
-
-            @Override
-            public void widgetDefaultSelected(SelectionEvent e) {// 双击
-                Object element = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-                System.out.println(element);
-            }
-        });
+        
         /*
          * ITreeContentProvider                     
          * 1. Object[] getElements                          入参：下面第5步的input.child，    出参：object[i]节点内容
@@ -66,6 +48,13 @@ public class JsonViewer extends ViewPart {
          */
         treeViewer.setInput(makeRoot(JsonFormat.JSON4 + ""));
         // getSite().setSelectionProvider(treeViewer);
+        
+        addTreeListener();
+    }
+
+    @Override
+    public void setFocus() {
+        //treeViewer.getControl().setFocus();
     }
 
     private Json makeRoot(String jsonStr) {
@@ -80,9 +69,28 @@ public class JsonViewer extends ViewPart {
         }
     }
 
-    @Override
-    public void setFocus() {
+    private void addTreeListener() {
+        final Tree tree = treeViewer.getTree();
+        tree.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {// 单击
+                super.widgetSelected(e);
+                Object element = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
 
+                // 刷新
+//              treeViewer.expandToLevel(2);    // 展开到二级菜单
+//              treeViewer.refresh();
+                System.err.println(element);
+            }
+
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {// 双击
+                Object element = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
+                System.out.println(element);
+            }
+        });        
     }
+
+
 
 }

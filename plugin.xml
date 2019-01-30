@@ -18,10 +18,15 @@
    
    <extension point="org.eclipse.ui.views">
       <view
-            class="org.ukhome.jsonviewer.view.JsonViewer"
-            id="org.ukhome.jsonviewer.view.JsonViewer"
-            name="JsonViewer"
-            restorable="true">
+            class="org.ukhome.jsonviewer.view.JsonTreeView"
+            id="org.ukhome.jsonviewer.view.JsonView"
+            name="JsonTreeView">
+      </view>
+      <view
+            class="org.ukhome.jsonviewer.view.JsonTextView"
+            id="org.ukhome.jsonviewer.view.JsonTextView"
+            name="JsonTextView"
+            allowMultiple="true">
       </view>
    </extension>
 
