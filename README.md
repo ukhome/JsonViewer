@@ -1,2 +1,22 @@
 # JsonViewer
 Eclipse RCP JsonViewer Application
+
+
+启动顺序
+WorkbenchAdvisor.preStartup
+WorkbenchAdvisor.openWindows
+WorkbenchAdvisor.createWorkbenchWindowAdvisor  
+WorkbenchWindowAdvisor.preWindowOpen
+WorkbenchWindowAdvisor.createActionBarAdvisor
+WorkbenchWindowAdvisor.postWindowCreate
+WorkbenchWindowAdvisor.postWindowOpen
+WorkbenchAdvisor.postStartup
+
+
+
+
+关闭顺序
+WorkbenchWindowAdvisor.preWindowShellClose
+WorkbenchAdvisor.preShutdown
+WorkbenchWindowAdvisor.postWindowClose
+WorkbenchAdvisor.postShutdown 

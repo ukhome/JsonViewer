@@ -12,18 +12,22 @@ import org.eclipse.ui.part.ViewPart;
 import org.ukhome.jsonviewer.model.Json;
 import org.ukhome.jsonviewer.provider.JsonViewerContentProvider;
 import org.ukhome.jsonviewer.provider.JsonViewerLabelProvider;
-import org.ukhome.jsonviewer.util.JsonFormat;
 import org.ukhome.jsonviewer.util.StringUtils;
 
 public class JsonTreeView extends ViewPart {
 
     public static final String ID = "org.ukhome.jsonviewer.view.JsonView";
 
-    private TreeViewer treeViewer;
+    private static TreeViewer treeViewer;
 
     public JsonTreeView() {
 
     }
+    
+    public static void setTreeInput(String input){
+        treeViewer.setInput(makeRoot(input));
+    }
+    
 
     @Override
     public void createPartControl(Composite parent) {
@@ -46,7 +50,8 @@ public class JsonTreeView extends ViewPart {
         /*
          * 5. 入参同时也是上面的getElements、getImage、getText入参的parent
          */
-        treeViewer.setInput(makeRoot(JsonFormat.JSON4 + ""));
+        treeViewer.setInput(null);
+//        treeViewer.setInput(makeRoot(JsonFormat.JSON4 + ""));
         // getSite().setSelectionProvider(treeViewer);
         
         addTreeListener();
@@ -57,7 +62,7 @@ public class JsonTreeView extends ViewPart {
         //treeViewer.getControl().setFocus();
     }
 
-    private Json makeRoot(String jsonStr) {
+    private static Json makeRoot(String jsonStr) {
         if (!StringUtils.isJson(jsonStr)) return null;
         char rootTag = jsonStr.charAt(0);
         String root = rootTag == '[' ? '[' + jsonStr + ']' : "{\"root\":" + jsonStr + '}';

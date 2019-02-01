@@ -20,6 +20,9 @@ public class JsonFormat {
 
     public static String formatJson(String jsonStr) {
         if (null == jsonStr || "".equals(jsonStr)) return "";
+        
+        jsonStr = removeCRTL(jsonStr);
+        
         StringBuilder sb = new StringBuilder();
         char last = '\0';
         char current = '\0';
@@ -67,10 +70,19 @@ public class JsonFormat {
         
         return sb.toString();
     }
+    
+    public static String removeAll(String str) {
+        str = str.replaceAll("\r", "").replaceAll("\n", "").replaceAll("\t", "");
+        return str.replaceAll("\\", "");
+    }
+    
+    private static String removeCRTL(String str) {
+        return str.replaceAll("\r", "").replaceAll("\n", "").replaceAll("\t", "");
+    }
 
     private static void addIndentBlank(StringBuilder sb, int indent) {
         for (int i = 0; i < indent; i++) {
-            sb.append("    ");
+            sb.append("\t");
         }
     }
     
@@ -96,8 +108,8 @@ public class JsonFormat {
 
     public static void main(String[] args) {
 //        String str = "{\"code\":10000,\"msg\":null,\"data\":{\"id\":\"7aa0eb56-1026-4497-a42e-4c39f5e3dcf1\",\"topicId\":\"0876ab84-a478-417b-91bc-849843c191a5\",\"title\":null,\"commentId\":null,\"content\":\"开发者平台自动化测试：针对帖子发表评论\",\"images\":\"\",\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"commentNum\":0,\"status\":0}}";
-        String result = formatJson(JSON4);
-        System.out.println(result);
+//        String result = formatJson(JSON4);
+//        System.out.println(result);
         
     }
 

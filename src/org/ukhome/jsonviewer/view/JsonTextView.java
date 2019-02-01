@@ -1,5 +1,8 @@
 package org.ukhome.jsonviewer.view;
 
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -8,6 +11,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 import org.ukhome.jsonviewer.util.JsonFormat;
@@ -31,6 +35,8 @@ public class JsonTextView extends ViewPart {
         messageText = new Text(curtain, SWT.MULTI | SWT.WRAP);
         messageText.setLayoutData(new GridData(GridData.FILL_BOTH));
         messageText.setText(JsonFormat.formatJson(JsonFormat.JSON4));
+        
+        createContextMenu(); // 配合弹出式菜单一起使用
     }
 
     @Override
@@ -111,6 +117,31 @@ public class JsonTextView extends ViewPart {
 
         dateLabel = new Label(parent, SWT.WRAP);
         dateLabel.setText("2019-01-30 22:50:43");
+    }
+
+    private void createContextMenu() {
+        MenuManager menuMgr = new MenuManager("#PopupMenu");
+        menuMgr.setRemoveAllWhenShown(true); // 监听
+        menuMgr.addMenuListener(new IMenuListener() {
+
+            @Override
+            public void menuAboutToShow(IMenuManager manager) {
+//                MessageDialog.openInformation(
+//                        PlatformUI.getWorkbench().getDisplay().getActiveShell(),
+//                        "Nhj",
+//                        messageText.getSelectionText());
+                
+                String text = messageText.getText();
+                text = JsonFormat.formatJson(text);
+                messageText.setText(text);
+                JsonTreeView.setTreeInput(text);
+                
+//                JsonTreeView.setTreeInput(messageText.getSelectionText());
+            }
+            
+        });
+        Menu m = menuMgr.createContextMenu(messageText);
+        messageText.setMenu(m);
     }
 
 }

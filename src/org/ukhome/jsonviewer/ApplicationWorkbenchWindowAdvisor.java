@@ -24,10 +24,10 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setShowMenuBar(true);
-        configurer.setShowProgressIndicator(true);
-        configurer.setInitialSize(new Point(800, 600));
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(true);
+        configurer.setShowProgressIndicator(true);
+        configurer.setInitialSize(new Point(800, 600));
         configurer.setTitle("JsonViewer"); //$NON-NLS-1$
     }
 
