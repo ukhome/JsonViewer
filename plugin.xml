@@ -11,7 +11,7 @@
    <extension point="org.eclipse.ui.perspectives">
       <perspective
             class="org.ukhome.jsonviewer.perspective.JsonViewerPerspective"
-            name="JsonViewer Perspective"
+            name="%perspective.name"
             id="org.ukhome.jsonviewer.perspective">
       </perspective>
    </extension>
@@ -20,12 +20,12 @@
       <view
             class="org.ukhome.jsonviewer.view.JsonTreeView"
             id="org.ukhome.jsonviewer.view.JsonView"
-            name="JsonTreeView">
+            name="%view.name.jsontree">
       </view>
       <view
             class="org.ukhome.jsonviewer.view.JsonTextView"
             id="org.ukhome.jsonviewer.view.JsonTextView"
-            name="JsonTextView"
+            name="%view.name.jsontext"
             allowMultiple="true">
       </view>
    </extension>

@@ -15,12 +15,15 @@ public class JsonViewerPerspective implements IPerspectiveFactory {
         layout.setEditorAreaVisible(false);//不显示编辑区，所以下面的0.5f没用了，实际上是全占了
 
         layout.addStandaloneView(JsonTreeView.ID, false, IPageLayout.LEFT, 0.25f, editorArea);
-        IViewLayout jsonViewerLayout = layout.getViewLayout(JsonTreeView.ID);
-        jsonViewerLayout.setCloseable(false);
-        jsonViewerLayout.setMoveable(false);
+        IViewLayout jsonTreeLayout = layout.getViewLayout(JsonTreeView.ID);
+        jsonTreeLayout.setCloseable(false);
+        jsonTreeLayout.setMoveable(false);
 
-        IFolderLayout folder = layout.createFolder("messages", IPageLayout.TOP, 0.5f, editorArea);
+        IFolderLayout folder = layout.createFolder("messages", IPageLayout.TOP, 1f, editorArea);
         folder.addPlaceholder(JsonTextView.ID + ":*");//:*表示允许多个
         folder.addView(JsonTextView.ID);
+
+        IViewLayout jsonTextLayout = layout.getViewLayout(JsonTextView.ID);
+        jsonTextLayout.setCloseable(false);
     }
 }

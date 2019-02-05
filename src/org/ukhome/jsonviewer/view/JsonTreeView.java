@@ -12,6 +12,7 @@ import org.eclipse.ui.part.ViewPart;
 import org.ukhome.jsonviewer.model.Json;
 import org.ukhome.jsonviewer.provider.JsonViewerContentProvider;
 import org.ukhome.jsonviewer.provider.JsonViewerLabelProvider;
+import org.ukhome.jsonviewer.util.ControlFactory;
 import org.ukhome.jsonviewer.util.StringUtils;
 
 public class JsonTreeView extends ViewPart {
@@ -26,6 +27,7 @@ public class JsonTreeView extends ViewPart {
     
     public static void setTreeInput(String input){
         treeViewer.setInput(makeRoot(input));
+        treeViewer.expandAll();
     }
     
 
@@ -53,7 +55,8 @@ public class JsonTreeView extends ViewPart {
         treeViewer.setInput(null);
 //        treeViewer.setInput(makeRoot(JsonFormat.JSON4 + ""));
         // getSite().setSelectionProvider(treeViewer);
-        
+
+        treeViewer.getTree().setBackground(ControlFactory.textBGColor);
         addTreeListener();
     }
 

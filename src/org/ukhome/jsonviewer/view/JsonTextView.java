@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
+import org.ukhome.jsonviewer.util.ControlFactory;
 import org.ukhome.jsonviewer.util.JsonFormat;
 
 public class JsonTextView extends ViewPart {
@@ -32,8 +33,9 @@ public class JsonTextView extends ViewPart {
         createSourceRow(banner, boldFont);
         createDateRow(banner, boldFont);
         
-        messageText = new Text(curtain, SWT.MULTI | SWT.WRAP);
+        messageText = new Text(curtain, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         messageText.setLayoutData(new GridData(GridData.FILL_BOTH));
+        messageText.setBackground(ControlFactory.textBGColor);
         messageText.setText(JsonFormat.formatJson(JsonFormat.JSON4));
         
         createContextMenu(); // 配合弹出式菜单一起使用
@@ -55,6 +57,7 @@ public class JsonTextView extends ViewPart {
         layout.marginHeight = 0;
         layout.marginWidth = 0;
         curtain.setLayout(layout);
+        curtain.setBackground(ControlFactory.controlBGColor);
         return curtain;
     }
 
@@ -82,7 +85,7 @@ public class JsonTextView extends ViewPart {
      * @param boldFont
      */
     private void createSubject(Composite parent, Font boldFont) {
-        Label subjectLabel = new Label(parent, SWT.NONE);
+        Label subjectLabel = ControlFactory.getDefault().createLabel(parent, SWT.NONE);
         subjectLabel.setText("Subject:");
         subjectLabel.setFont(boldFont);
         subjectLabel.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
@@ -97,7 +100,7 @@ public class JsonTextView extends ViewPart {
      * @param boldFont
      */
     private void createSourceRow(Composite parent, Font boldFont) {
-        Label sourceLabel = new Label(parent, SWT.NONE);
+        Label sourceLabel = ControlFactory.getDefault().createLabel(parent, SWT.NONE);
         sourceLabel.setText("Source:");
         sourceLabel.setFont(boldFont);
 
@@ -111,7 +114,7 @@ public class JsonTextView extends ViewPart {
      * @param boldFont
      */
     private void createDateRow(Composite parent, Font boldFont) {
-        Label dateLabel = new Label(parent, SWT.NONE);
+        Label dateLabel = ControlFactory.getDefault().createLabel(parent, SWT.NONE);
         dateLabel.setText("Date:");
         dateLabel.setFont(boldFont);
 

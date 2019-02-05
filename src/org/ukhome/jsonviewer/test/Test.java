@@ -1,9 +1,10 @@
-package org.ukhome.jsonviewer.util;
+package org.ukhome.jsonviewer.test;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.ukhome.jsonviewer.model.Json;
+import org.ukhome.jsonviewer.util.JsonFormat;
 
 public class Test {
 
