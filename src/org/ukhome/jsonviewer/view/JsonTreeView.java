@@ -36,7 +36,7 @@ public class JsonTreeView extends ViewPart {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new FillLayout(SWT.HORIZONTAL));
         treeViewer = new TreeViewer(container, SWT.BORDER);
-        
+        treeViewer.getTree().setFont(ControlFactory.getDefaultFont());
         /*
          * ITreeContentProvider                     
          * 1. Object[] getElements                          入参：下面第5步的input.child，    出参：object[i]节点内容

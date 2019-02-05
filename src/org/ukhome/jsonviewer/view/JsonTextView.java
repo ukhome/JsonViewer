@@ -1,10 +1,15 @@
 package org.ukhome.jsonviewer.view;
 
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -12,8 +17,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
+import org.ukhome.jsonviewer.Activator;
 import org.ukhome.jsonviewer.util.ControlFactory;
 import org.ukhome.jsonviewer.util.JsonFormat;
 
@@ -21,7 +27,8 @@ public class JsonTextView extends ViewPart {
 
     public static final String ID = "org.ukhome.jsonviewer.view.JsonTextView";
 
-    private Text messageText;
+    private Action action1;
+    private StyledText messageText;
 
     @Override
     public void createPartControl(Composite parent) {
@@ -32,13 +39,16 @@ public class JsonTextView extends ViewPart {
         createSubject(banner, boldFont);
         createSourceRow(banner, boldFont);
         createDateRow(banner, boldFont);
-        
-        messageText = new Text(curtain, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
+
+        messageText = new StyledText(curtain, SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         messageText.setLayoutData(new GridData(GridData.FILL_BOTH));
         messageText.setBackground(ControlFactory.textBGColor);
+        messageText.setFont(ControlFactory.getDefaultFont());
         messageText.setText(JsonFormat.formatJson(JsonFormat.JSON4));
         
-        createContextMenu(); // 配合弹出式菜单一起使用
+        makeActions();
+        hookContextMenu(); // 配合弹出式菜单一起使用
+        contributeToActionBars();
     }
 
     @Override
@@ -48,6 +58,7 @@ public class JsonTextView extends ViewPart {
 
     /**
      * 幕布
+     * 
      * @param parent
      * @return
      */
@@ -63,6 +74,7 @@ public class JsonTextView extends ViewPart {
 
     /**
      * 横幅
+     * 
      * @param parent
      * @return
      */
@@ -96,6 +108,7 @@ public class JsonTextView extends ViewPart {
 
     /**
      * 源码
+     * 
      * @param parent
      * @param boldFont
      */
@@ -110,6 +123,7 @@ public class JsonTextView extends ViewPart {
 
     /**
      * 日期
+     * 
      * @param parent
      * @param boldFont
      */
@@ -122,29 +136,56 @@ public class JsonTextView extends ViewPart {
         dateLabel.setText("2019-01-30 22:50:43");
     }
 
-    private void createContextMenu() {
+    private void makeActions() {
+        action1 = new Action() {
+            public void run() {
+                showMessage("Action 1 executed");
+            }
+        };
+        action1.setText("expend");
+        action1.setToolTipText("expend json");
+        action1.setImageDescriptor(Activator.getImageDescriptor("icons/expend.gif"));
+    }
+
+    /**
+     * 右击
+     */
+    private void hookContextMenu() {
         MenuManager menuMgr = new MenuManager("#PopupMenu");
         menuMgr.setRemoveAllWhenShown(true); // 监听
         menuMgr.addMenuListener(new IMenuListener() {
 
             @Override
             public void menuAboutToShow(IMenuManager manager) {
-//                MessageDialog.openInformation(
-//                        PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-//                        "Nhj",
-//                        messageText.getSelectionText());
-                
                 String text = messageText.getText();
                 text = JsonFormat.formatJson(text);
                 messageText.setText(text);
                 JsonTreeView.setTreeInput(text);
-                
-//                JsonTreeView.setTreeInput(messageText.getSelectionText());
+                // JsonTreeView.setTreeInput(messageText.getSelectionText());
             }
-            
+
         });
         Menu m = menuMgr.createContextMenu(messageText);
         messageText.setMenu(m);
+    }
+
+    private void contributeToActionBars() {
+        IActionBars bars = getViewSite().getActionBars();
+        fillLocalPullDown(bars.getMenuManager());
+        fillLocalToolBar(bars.getToolBarManager());
+    }
+
+    private void fillLocalPullDown(IMenuManager manager) {
+        manager.add(action1);
+        manager.add(new Separator());
+    }
+
+    private void fillLocalToolBar(IToolBarManager manager) {
+        manager.add(action1);
+    }
+
+    private void showMessage(String message) {
+        MessageDialog.openInformation(messageText.getShell(), "Sample View", message);
     }
 
 }

@@ -1,5 +1,6 @@
 package org.ukhome.jsonviewer.util;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Combo;
@@ -7,12 +8,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.ukhome.jsonviewer.SWTResourceManager;
 
 public class ControlFactory {
     public static Font controlFont;
     public static Color controlForeColor;
-    public static Color textBGColor = new Color(Display.getDefault(), 203, 233, 207);
-    public static Color controlBGColor = new Color(Display.getDefault(), 236, 236, 236);
+    public static Color textBGColor = SWTResourceManager.getColor(203, 233, 207);
+    public static Color controlBGColor = SWTResourceManager.getColor(236, 236, 236);
 
     private ControlFactory() {
     }
@@ -24,6 +26,12 @@ public class ControlFactory {
     public static ControlFactory getDefault() {
         return ControlFactorySingle.instance;
     }
+    
+    public static Font getDefaultFont() {
+        return SWTResourceManager.getFont(Display.getDefault().getSystemFont().getFontData()[0].getName(), 14, SWT.NORMAL);
+    }
+    
+    
 
     /**
      * 创建 label 控件
