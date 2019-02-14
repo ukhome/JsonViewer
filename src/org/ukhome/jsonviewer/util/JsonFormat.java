@@ -15,13 +15,13 @@ public class JsonFormat {
     public static final String JSON1 = "{\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userName\":\"\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"status\":null}}";
     public static final String JSON2 = "[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":null}}]";
     public static final String JSON3 = "{\"11\":[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":1}}]}";
-    public static final String JSON4 = "[[{\"code\":10000,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":\"2018-11-15 18:09:56\",\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":null}}]]";
+    public static final String JSON4 = "[[{\"code\":null,\"msg\":null,\"data\":{\"time\":\"2017-10-15 18:09:56\",\"userId\":\"61028f94-de92-4c65-aad3-2fc8614e1d34\",\"userName\":\"devautotest\",\"status\":0}},{\"code\":10003,\"msg\":null,\"data\":{\"time\":null,\"userId\":\"31028f94-de92-4c25-aad3-2fc8614e1d34\",\"userName\":\"master\",\"status\":null}}]]";
 
 
     public static String formatJson(String jsonStr) {
         if (null == jsonStr || "".equals(jsonStr)) return "";
         
-        jsonStr = removeCRTL(jsonStr);
+        jsonStr = removeCRLF(jsonStr);
         
         StringBuilder sb = new StringBuilder();
         char last = '\0';
@@ -70,14 +70,19 @@ public class JsonFormat {
         
         return sb.toString();
     }
-    
+
     public static String removeAll(String str) {
-        str = str.replaceAll("\r", "").replaceAll("\n", "").replaceAll("\t", "");
-        return str.replaceAll("\\", "");
+        str = removeCRLF(str);
+        return removeTranslation(str);
     }
-    
-    private static String removeCRTL(String str) {
+
+    private static String removeCRLF(String str) {
         return str.replaceAll("\r", "").replaceAll("\n", "").replaceAll("\t", "");
+    }
+
+    public static String removeTranslation(String str) {
+        if(StringUtils.isEmpty(str)) return null;
+        return str.replace("\\", "");
     }
 
     private static void addIndentBlank(StringBuilder sb, int indent) {
@@ -85,7 +90,7 @@ public class JsonFormat {
             sb.append("\t");
         }
     }
-    
+
     public static JSON parseJson(String str) {
         JSON json;
         try {
@@ -95,7 +100,7 @@ public class JsonFormat {
         }
         return json;
     }
-    
+
     public static Object[] toArray(Object obj) {
         Object[] array = new Object[0];
         if (obj instanceof JsonArray) {

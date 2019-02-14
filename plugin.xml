@@ -34,6 +34,13 @@
             id="org.ukhome.jsonviewer.view.category"
             name="JsonViewer">
       </category>
+      <view
+            category="org.ukhome.jsonviewer.view.category"
+            class="org.ukhome.jsonviewer.view.DateUtilView"
+            id="org.ukhome.jsonviewer.view.DateUtilView"
+            name="%view.name.dateutil"
+            restorable="true">
+      </view>
    </extension>
 
 </plugin>
