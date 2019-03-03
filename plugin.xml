@@ -11,8 +11,9 @@
    <extension point="org.eclipse.ui.perspectives">
       <perspective
             class="org.ukhome.jsonviewer.perspective.JsonViewerPerspective"
-            name="%perspective.name"
-            id="org.ukhome.jsonviewer.perspective">
+            fixed="true"
+            id="org.ukhome.jsonviewer.perspective"
+            name="%perspective.name">
       </perspective>
    </extension>
    
@@ -41,6 +42,26 @@
             name="%view.name.dateutil"
             restorable="true">
       </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.ukhome.jsonviewer.preferences.RootPreferencePage"
+            id="org.ukhome.jsonviewer.preferences.RootPreferencePage"
+            name="JsonViewer">
+      </page>
+      <page
+            category="org.ukhome.jsonviewer.preferences.RootPreferencePage"
+            class="org.ukhome.jsonviewer.preferences.JsonPreferencePage"
+            id="org.ukhome.jsonviewer.preferences.RootPreferencePage"
+            name="json">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.ukhome.jsonviewer.preferences.PreferenceInitializer">
+      </initializer>
    </extension>
 
 </plugin>

@@ -13,7 +13,7 @@ public class JsonViewerPerspective implements IPerspectiveFactory {
     @Override
     public void createInitialLayout(IPageLayout layout) {
         String editorArea = layout.getEditorArea();
-        layout.setEditorAreaVisible(false);//不显示编辑区，所以下面的0.5f没用了，实际上是全占了
+        layout.setEditorAreaVisible(false);// 不显示编辑区，所以下面的0.5f没用了，实际上是全占了
 
         layout.addStandaloneView(JsonTreeView.ID, true, IPageLayout.LEFT, 0.25f, editorArea);
         IViewLayout jsonTreeLayout = layout.getViewLayout(JsonTreeView.ID);
@@ -21,7 +21,7 @@ public class JsonViewerPerspective implements IPerspectiveFactory {
         jsonTreeLayout.setMoveable(false);
 
         IFolderLayout folder = layout.createFolder("messages", IPageLayout.TOP, 1f, editorArea);
-        folder.addPlaceholder(JsonTextView.ID + ":*");//:*表示允许多个
+        folder.addPlaceholder(JsonTextView.ID + ":*");// :*表示允许多个
         folder.addView(JsonTextView.ID);
 
         IViewLayout jsonTextLayout = layout.getViewLayout(JsonTextView.ID);

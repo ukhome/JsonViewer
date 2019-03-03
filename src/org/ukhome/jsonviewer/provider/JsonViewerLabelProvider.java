@@ -2,14 +2,10 @@ package org.ukhome.jsonviewer.provider;
 
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.ukhome.jsonviewer.Activator;
 import org.ukhome.jsonviewer.model.Json;
 import org.ukhome.jsonviewer.util.StringUtils;
 
 public class JsonViewerLabelProvider extends LabelProvider {
-
-    public Image arrowdown = Activator.getImageDescriptor("icons/arrowdown.gif").createImage();
-    public Image arrowup = Activator.getImageDescriptor("icons/arrowup.gif").createImage();
 
     @Override
     public Image getImage(Object element) {
@@ -26,19 +22,15 @@ public class JsonViewerLabelProvider extends LabelProvider {
         char prefixChar = element2Str.trim().equals("") ? '\0' : element2Str.trim().charAt(0);
         switch (prefixChar) {
             case '{':
-                text += "{⋅⋅⋅}";
-//                text = "✡️" + "{⋅⋅⋅}";
+                text += "{Object}";
                 break;
             case '[':
-                text += "[⟷]";
-//                text = "🔯" + "[⟷]";
+                text += "[Array]";
                 break;
             case '\0':
                 text = null;
                 break;
             default:
-//                text = element2Str.contains(":") ? element2Str.substring(0, element2Str.indexOf(":")) : element2Str;
-                // text = "☯️" + element2Str;
                 break;
         }
 
