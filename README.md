@@ -3,8 +3,8 @@
 给eclipse写的一个json视图插件
 
 
-![view](./images/view.jsp)
-![perspective](./images/perspective.jsp)
+![view](../../tree/master/images/view.jpg)
+![perspective](../../tree/master/images/perspective.jpg)
 
 functions<br/>
 功能介绍
