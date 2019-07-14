@@ -30,8 +30,8 @@ download the plugin [jar] with code 't74h';<br/>
 use plugin<br/>
 使用插件
 ***
-1.use with perspective, menu: Window -> Show Perspective -> Other -> JsonViewer;<br>
-使用透视图方式， 菜单栏：Window -> Show Perspective -> Other -> JsonViewer
+1.use with perspective, menu: Window -> Open Perspective -> Other -> JsonViewer;<br>
+使用透视图方式， 菜单栏：Window -> Open Perspective -> Other -> JsonViewer
 
 2.use with view, menu: Window -> Show View -> Other -> input "josn"，choose one view to open it.<br>
 使用视图方式，菜单栏：Window -> Show View -> Other -> 输入“josn”，选择打开。
