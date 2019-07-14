@@ -3,6 +3,9 @@
 给eclipse写的一个json视图插件
 
 
+![view](./images/view.jsp)
+![perspective](./images/perspective.jsp)
+
 functions<br/>
 功能介绍
 ***
